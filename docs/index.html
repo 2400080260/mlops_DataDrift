@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Customer churn monitoring with statistical data drift detection and validated model retraining.">
+  <title>Automated Model Retraining System</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17313a;
+      --muted: #52666a;
+      --paper: #f5f8f5;
+      --surface: #fff;
+      --teal: #087e83;
+      --teal-dark: #075b60;
+      --coral: #d76648;
+      --line: #d5e0dc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: linear-gradient(rgba(8, 126, 131, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(8, 126, 131, .045) 1px, transparent 1px);
+      background-size: 32px 32px;
+      font: 16px/1.55 "Segoe UI", sans-serif;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: .9rem; font-weight: 700; }
+    .mark { width: 34px; aspect-ratio: 1; display: grid; place-items: center; color: white; background: var(--teal); border-radius: 8px; font-size: 1.15rem; }
+    nav { display: flex; gap: 22px; color: var(--muted); font-size: .9rem; }
+    nav a { text-decoration: none; }
+    .intro { padding: clamp(54px, 9vw, 104px) 0 56px; max-width: 760px; animation: rise .55s ease-out both; }
+    .kicker { color: var(--teal-dark); font-size: .76rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 16px 0; max-width: 720px; font: 500 clamp(2.5rem, 6vw, 5rem)/1.02 Georgia, serif; letter-spacing: 0; }
+    .lead { max-width: 650px; color: var(--muted); font-size: 1.12rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 18px; border: 1px solid var(--teal); border-radius: 4px; background: var(--teal); color: white; font-weight: 700; text-decoration: none; }
+    .button:hover { background: var(--teal-dark); }
+    .button.secondary { background: var(--surface); color: var(--ink); border-color: var(--line); }
+    .button.secondary:hover { border-color: var(--teal); }
+    .pipeline { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.7); }
+    .step { min-height: 150px; padding: 22px; border-right: 1px solid var(--line); }
+    .step:last-child { border-right: 0; }
+    .step span { color: var(--coral); font-size: .75rem; font-weight: 700; }
+    .step h2 { margin: 12px 0 5px; font-size: 1rem; }
+    .step p { margin: 0; color: var(--muted); font-size: .88rem; }
+    .details { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; padding: 58px 0; }
+    .details h2 { margin: 0 0 12px; font: 500 1.8rem Georgia, serif; }
+    .details p { margin: 0; color: var(--muted); }
+    .stack { display: flex; flex-wrap: wrap; gap: 8px; align-content: start; }
+    .stack span { padding: 8px 11px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); font-size: .84rem; }
+    footer { display: flex; justify-content: space-between; gap: 18px; padding: 20px 0 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: .84rem; }
+    footer a { color: var(--teal-dark); }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 700px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      nav { gap: 12px; font-size: .8rem; }
+      .pipeline { grid-template-columns: repeat(2, 1fr); }
+      .step:nth-child(2) { border-right: 0; }
+      .step:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .details { grid-template-columns: 1fr; gap: 28px; padding: 42px 0; }
+      footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><span class="mark" aria-hidden="true">↻</span><span>MLOps / CUSTOMER CHURN</span></div>
+      <nav aria-label="Main navigation">
+        <a href="#pipeline">Pipeline</a>
+        <a href="https://github.com/2400080260/mlops_DataDrift">Source</a>
+      </nav>
+    </header>
+    <main>
+      <section class="intro">
+        <div class="kicker">Continuous monitoring · Validated promotion</div>
+        <h1>Automated Model Retraining System</h1>
+        <p class="lead">Intelligent data drift detection and continuous model monitoring for customer churn prediction. Statistical drift alerts stay separate from the labeled-data evaluation required to promote a replacement model.</p>
+        <div class="actions">
+          <a class="button" href="https://mlopsdatadrift-fcsxcpgkrraf2zgvowge6n.streamlit.app/">Open Streamlit dashboard <span aria-hidden="true">↗</span></a>
+          <a class="button secondary" href="https://github.com/2400080260/mlops_DataDrift">View source <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+      <section class="pipeline" id="pipeline" aria-label="Monitoring and retraining workflow">
+        <article class="step"><span>01 / REFERENCE</span><h2>Train baseline</h2><p>Compare logistic regression and random forest on reproducible customer data.</p></article>
+        <article class="step"><span>02 / MONITOR</span><h2>Measure drift</h2><p>Test incoming features with Evidently, KS, and chi-square methods.</p></article>
+        <article class="step"><span>03 / VALIDATE</span><h2>Evaluate candidate</h2><p>Compare candidate and incumbent on the same labeled validation split.</p></article>
+        <article class="step"><span>04 / PROMOTE</span><h2>Version safely</h2><p>Promote only an accepted model; keep the prior version on rejection.</p></article>
+      </section>
+      <section class="details">
+        <div><h2>Monitor the signal. Validate the model.</h2><p>The dashboard tracks persisted drift, training, and retraining results. Incoming drift checks use feature columns only; labels are reserved for model retraining and validation.</p></div>
+        <div class="stack" aria-label="Technology stack"><span>Python 3.11</span><span>scikit-learn</span><span>Evidently</span><span>MLflow</span><span>Streamlit</span><span>Plotly</span><span>Joblib</span></div>
+      </section>
+    </main>
+    <footer><span>Educational MLOps project · Synthetic churn data</span><span>Dashboard runtime: <a href="https://mlopsdatadrift-fcsxcpgkrraf2zgvowge6n.streamlit.app/">Streamlit Community Cloud</a></span></footer>
+  </div>
+</body>
+</html>

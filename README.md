@@ -58,9 +58,9 @@ Open the dashboard at `http://localhost:8501` and MLflow at `http://127.0.0.1:50
 
 ## Publish the Live Dashboard
 
-GitHub Pages serves static websites and cannot run this Python/Streamlit application. To publish the functional dashboard, push this repository to GitHub and deploy it through [Streamlit Community Cloud](https://share.streamlit.io/): select this repository, choose branch `main`, set the app file to `app.py`, and deploy. The app creates its synthetic reference data and model through the **Initialize data and train model** action on first launch. MLflow's local UI is for local runs; it is not exposed by the hosted dashboard.
+GitHub Pages serves static websites and cannot run this Python/Streamlit application. This repository includes a static project portal in `docs/` that links to the functional dashboard hosted separately on [Streamlit Community Cloud](https://share.streamlit.io/). The app creates its synthetic reference data and model through the **Initialize data and train model** action on first launch. MLflow's local UI is for local runs; it is not exposed by the hosted dashboard.
 
-To publish static project documentation on GitHub Pages, configure Pages for the repository's `docs/` folder or a `gh-pages` branch separately. That static page does not host or replace the Streamlit app.
+To enable the project portal, open repository **Settings → Pages**, choose **GitHub Actions** as the build and deployment source, and push to `main` (or rerun the `Deploy project page` workflow). The static Pages URL will be `https://2400080260.github.io/mlops_DataDrift/`; it links to but does not host or replace the Streamlit app. In Streamlit Community Cloud, select Python 3.11 in the app's Advanced settings to match this project's tested runtime.
 
 ## Demonstration Workflow
 
