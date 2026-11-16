@@ -18,6 +18,12 @@ class PipelineTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "monthly_charges"):
             validate_dataset(frame, require_target=True)
 
+    def test_validation_discards_optional_target_for_drift_input(self):
+        frame = generate_customer_data(20, seed=13, include_target=True)
+        features_only = validate_dataset(frame, require_target=False)
+        self.assertEqual(list(features_only.columns), FEATURES)
+        self.assertNotIn(TARGET, features_only.columns)
+
     def test_metrics_include_all_required_measures_and_matrix(self):
         metrics = calculate_metrics([0, 0, 1, 1], [0, 1, 1, 1])
         self.assertEqual(set(("accuracy", "precision", "recall", "f1", "confusion_matrix")) - metrics.keys(), set())

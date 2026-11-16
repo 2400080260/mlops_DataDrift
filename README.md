@@ -72,6 +72,8 @@ To enable the project portal, open repository **Settings → Pages**, choose **G
 
 Monitoring can be run independently with `python -m src.retrain` after incoming and reference data exist. Retraining is not triggered by a statistical drift result alone if labeled feedback is missing. To change the decision policy, edit the thresholds in `config.py`.
 
+To check your own dataset, open **Data Monitoring**, upload a CSV, and select **Check uploaded data for drift**. The required columns are `customer_age`, `gender`, `tenure_months`, `monthly_charges`, `total_charges`, `contract_type`, `internet_service`, `payment_method`, and `support_calls`. The `churn` column is optional and discarded for drift checks. The uploaded feature rows become the current incoming sample; any previous simulated labels are cleared so they cannot be accidentally matched to different customers. Do not upload names, account IDs, or other identifying information.
+
 ## Tests
 
 ```powershell

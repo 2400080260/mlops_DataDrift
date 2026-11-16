@@ -23,12 +23,13 @@ from config import (
     RETRAINING_HISTORY_PATH,
     RETRAINING_LOG_PATH,
 )
-from src.data_preprocessing import CATEGORICAL_FEATURES, FEATURES, NUMERIC_FEATURES, initialize_reference_dataset
+from src.data_preprocessing import CATEGORICAL_FEATURES, FEATURES, NUMERIC_FEATURES, initialize_reference_dataset, validate_dataset
+from src.detect_drift import detect_drift
 from src.predict import predict_customer
 from src.retrain import retrain_if_drifted, run_monitoring, simulate_incoming_data
 from src.train import train_initial_model
 from src.mlflow_tracking import tracking_uri
-from utils.storage import read_csv, read_json
+from utils.storage import read_csv, read_json, write_csv
 
 st.set_page_config(page_title="Automated Model Retraining System", page_icon="↻", layout="wide")
 st.markdown(
@@ -123,6 +124,29 @@ def show_monitoring() -> None:
     reference = read_csv(REFERENCE_DATA_PATH, required=False)
     incoming = read_csv(INCOMING_DATA_PATH, required=False)
     drift = read_json(DRIFT_RESULTS_PATH, {}) or {}
+    st.subheader("Check your incoming data")
+    st.caption(f"Required columns: {', '.join(FEATURES)}. An optional churn column is discarded before drift analysis. Uploading replaces the active incoming sample and clears older feedback labels. Avoid names, account IDs, or other identifying data.")
+    uploaded_file = st.file_uploader("Incoming customer data (CSV)", type=["csv"], key="incoming_csv_upload")
+    uploaded_features = None
+    if uploaded_file is not None:
+        try:
+            uploaded_frame = pd.read_csv(uploaded_file)
+            uploaded_features = validate_dataset(uploaded_frame, require_target=False)[FEATURES]
+            st.caption(f"Validated {len(uploaded_features):,} rows and {len(FEATURES)} features from {uploaded_file.name}.")
+        except (ValueError, pd.errors.ParserError, UnicodeDecodeError) as error:
+            st.error(f"CSV validation failed: {error}")
+    if st.button("Check uploaded data for drift", type="primary", disabled=uploaded_features is None or reference is None):
+        try:
+            result = detect_drift(reference=reference, current=uploaded_features)
+            write_csv(uploaded_features, INCOMING_DATA_PATH)
+            LABELED_FEEDBACK_PATH.unlink(missing_ok=True)
+            st.success(f"Drift check complete: {result['status']}.")
+            st.rerun()
+        except Exception as error:
+            st.error(f"Could not check uploaded data: {error}")
+    if reference is None:
+        st.info("Reference data is not initialized. Train the initial model from Dashboard Overview before checking incoming data.")
+
     first, second = st.columns(2)
     first.metric("Reference rows", f"{len(reference):,}" if reference is not None else "Not initialized")
     second.metric("Latest incoming rows", f"{len(incoming):,}" if incoming is not None else "Not received")
